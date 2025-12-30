@@ -80,19 +80,36 @@ export function DeviceControls() {
               <div>
                 <div className="text-sm text-neutral-400 mb-3">Mode</div>
                 <div className="grid grid-cols-3 gap-2">
-                  {(['auto', 'cool', 'heat'] as const).map((mode) => (
-                    <button
-                      key={mode}
-                      onClick={() => setAcMode(mode)}
-                      className={`py-3 px-4 rounded-lg capitalize transition-colors ${
-                        acMode === mode
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-neutral-700 text-neutral-300 hover:bg-neutral-600'
-                      }`}
-                    >
-                      {mode}
-                    </button>
-                  ))}
+                  <button
+                    onClick={() => setAcMode('auto')}
+                    className={`py-3 px-4 rounded-lg capitalize transition-colors ${
+                      acMode === 'auto'
+                        ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/20'
+                        : 'bg-neutral-700 text-neutral-300 hover:bg-neutral-600'
+                    }`}
+                  >
+                    auto
+                  </button>
+                  <button
+                    onClick={() => setAcMode('cool')}
+                    className={`py-3 px-4 rounded-lg capitalize transition-colors ${
+                      acMode === 'cool'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-neutral-700 text-neutral-300 hover:bg-neutral-600'
+                    }`}
+                  >
+                    cool
+                  </button>
+                  <button
+                    onClick={() => setAcMode('heat')}
+                    className={`py-3 px-4 rounded-lg capitalize transition-colors ${
+                      acMode === 'heat'
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-neutral-700 text-neutral-300 hover:bg-neutral-600'
+                    }`}
+                  >
+                    heat
+                  </button>
                 </div>
               </div>
 
@@ -102,17 +119,33 @@ export function DeviceControls() {
                   <div className="text-sm text-neutral-400">Fan Speed</div>
                   <div className="text-sm">{acFanSpeed}/5</div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Fan className="w-5 h-5 text-neutral-400" />
-                  {[1, 2, 3, 4, 5].map((speed) => (
-                    <button
-                      key={speed}
-                      onClick={() => setAcFanSpeed(speed)}
-                      className={`flex-1 h-2 rounded-full transition-all ${
-                        speed <= acFanSpeed ? 'bg-blue-500' : 'bg-neutral-700'
-                      }`}
-                    ></button>
-                  ))}
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => setAcFanSpeed(Math.max(1, acFanSpeed - 1))}
+                    className="w-10 h-10 bg-neutral-800 hover:bg-neutral-700 rounded-full flex items-center justify-center transition-colors flex-shrink-0"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  
+                  <div className="flex-1 flex items-center gap-2">
+                    <Fan className="w-5 h-5 text-neutral-400" />
+                    {[1, 2, 3, 4, 5].map((speed) => (
+                      <button
+                        key={speed}
+                        onClick={() => setAcFanSpeed(speed)}
+                        className={`flex-1 h-2 rounded-full transition-all ${
+                          speed <= acFanSpeed ? 'bg-blue-500' : 'bg-neutral-700'
+                        }`}
+                      ></button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setAcFanSpeed(Math.min(5, acFanSpeed + 1))}
+                    className="w-10 h-10 bg-neutral-800 hover:bg-neutral-700 rounded-full flex items-center justify-center transition-colors flex-shrink-0"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
 
